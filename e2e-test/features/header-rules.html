@@ -229,7 +229,7 @@ kbd {
      <div class="mx-auto">
         <strong>BFE-ingress-controller</strong>
         <strong>version:</strong> <em class="pl-1 pr-3">0.3.0-dev</em>
-        <strong>time:</strong> <em class="pl-1 pr-3">2022-07-30T08:41:30Z</em>
+        <strong>time:</strong> <em class="pl-1 pr-3">2022-07-30T09:47:44Z</em>
       </div>
    </nav>
    <main role="main" class="container">
@@ -272,13 +272,13 @@ kbd {
           <td>
             <p data-toggle="tooltip" data-placement="left" title="Scenario passed">Passed</p>
           </td>
-          <td class="percentage">83.33%</td>
+          <td class="percentage">16.67%</td>
         </tr>
         <tr>
           <td>
             <p data-toggle="tooltip" data-placement="left" title="Scenario failed">Failed</p>
           </td>
-          <td class="percentage">16.67%</td>
+          <td class="percentage">83.33%</td>
       </tbody>
     </table>
   </div>
@@ -1132,7 +1132,7 @@ kbd {
   <div class="card m-1">
     <div class="card-body">
       <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario4" class="h5 text-success">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario4" class="h5 text-danger">
           Scenario: <span class="text-muted">An Ingress with path rules and header should send traffic to the matching backend service</span>
         </a>
         <p>  (exact / and header only key matches request / with header only key)</p>
@@ -1144,14 +1144,13 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed"> <i class="material-icons text-danger">error</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
+                    <span class="duration">5m0s</span>
                               
           an Ingress resource in a new random namespace          
           <a class="btn text-primary" data-toggle="collapse" href="#header-rules-an-ingress-with-path-rules-and-header-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
@@ -1164,7 +1163,7 @@ kbd {
           
         </div>
         
-        
+        <a class="btn text-danger" href="#error40-error" data-toggle="collapse">+Show Error</a>
         
         
         
@@ -1172,6 +1171,10 @@ kbd {
         
       </div>
       
+      
+      <div id="error40-error" class="scenario-step-collapse collapse bg-danger p-2 ml-3 mr-3">
+        <pre class="info text-white p-0 m-0">waiting for service (header-only-key) endpoints available: timed out waiting for the condition</pre>
+      </div>
       
       
       
@@ -1186,14 +1189,14 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">And </span>
-                    <span class="duration">3s</span>
+                    <span class="duration">0s</span>
                               
           The Ingress status should not be success          
           
@@ -1219,15 +1222,17 @@ kbd {
       
       </div>
     </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 8s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+    <div class="card-footer p-1 border-danger pl-3 pr-3">
+      Duration: 5m0s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
+        <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">1</span>
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">2</span>
+        <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+        
         
         
       </div>
@@ -1239,7 +1244,7 @@ kbd {
   <div class="card m-1">
     <div class="card-body">
       <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario5" class="h5 text-success">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario5" class="h5 text-danger">
           Scenario: <span class="text-muted">An Ingress with path rules and header should send traffic to the matching backend service</span>
         </a>
         <p>  (exact / and header only key matches request / without header)</p>
@@ -1251,14 +1256,13 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed"> <i class="material-icons text-danger">error</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
+                    <span class="duration">5m0s</span>
                               
           an Ingress resource in a new random namespace          
           <a class="btn text-primary" data-toggle="collapse" href="#header-rules-an-ingress-with-path-rules-and-header-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
@@ -1271,7 +1275,7 @@ kbd {
           
         </div>
         
-        
+        <a class="btn text-danger" href="#error50-error" data-toggle="collapse">+Show Error</a>
         
         
         
@@ -1279,6 +1283,10 @@ kbd {
         
       </div>
       
+      
+      <div id="error50-error" class="scenario-step-collapse collapse bg-danger p-2 ml-3 mr-3">
+        <pre class="info text-white p-0 m-0">waiting for service (header-only-key-no-header) endpoints available: timed out waiting for the condition</pre>
+      </div>
       
       
       
@@ -1293,14 +1301,14 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">And </span>
-                    <span class="duration">3s</span>
+                    <span class="duration">0s</span>
                               
           The Ingress status should not be success          
           
@@ -1326,15 +1334,17 @@ kbd {
       
       </div>
     </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 8s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+    <div class="card-footer p-1 border-danger pl-3 pr-3">
+      Duration: 5m0s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
+        <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">1</span>
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">2</span>
+        <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+        
         
         
       </div>
@@ -1346,7 +1356,7 @@ kbd {
   <div class="card m-1">
     <div class="card-body">
       <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario6" class="h5 text-success">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario6" class="h5 text-danger">
           Scenario: <span class="text-muted">An Ingress with path rules and header should send traffic to the matching backend service</span>
         </a>
         <p>  (exact / and header normal matches request / with header right)</p>
@@ -1358,14 +1368,13 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed"> <i class="material-icons text-danger">error</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
+                    <span class="duration">5m0s</span>
                               
           an Ingress resource in a new random namespace          
           <a class="btn text-primary" data-toggle="collapse" href="#header-rules-an-ingress-with-path-rules-and-header-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
@@ -1378,7 +1387,7 @@ kbd {
           
         </div>
         
-        
+        <a class="btn text-danger" href="#error60-error" data-toggle="collapse">+Show Error</a>
         
         
         
@@ -1386,6 +1395,10 @@ kbd {
         
       </div>
       
+      
+      <div id="error60-error" class="scenario-step-collapse collapse bg-danger p-2 ml-3 mr-3">
+        <pre class="info text-white p-0 m-0">waiting for service (header-normal-right) endpoints available: timed out waiting for the condition</pre>
+      </div>
       
       
       
@@ -1400,14 +1413,14 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
+                    <span class="duration">0s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
           
@@ -1435,8 +1448,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -1477,8 +1490,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -1512,8 +1525,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -1545,15 +1558,17 @@ kbd {
       
       </div>
     </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 11s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+    <div class="card-footer p-1 border-danger pl-3 pr-3">
+      Duration: 5m0s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
+        <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">4</span>
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">5</span>
+        <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+        
         
         
       </div>
@@ -1565,7 +1580,7 @@ kbd {
   <div class="card m-1">
     <div class="card-body">
       <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario7" class="h5 text-success">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario7" class="h5 text-danger">
           Scenario: <span class="text-muted">An Ingress with path rules and header should send traffic to the matching backend service</span>
         </a>
         <p>  (exact / and header normal dose not matches request / without header)</p>
@@ -1577,14 +1592,13 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed"> <i class="material-icons text-danger">error</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
+                    <span class="duration">5m0s</span>
                               
           an Ingress resource in a new random namespace          
           <a class="btn text-primary" data-toggle="collapse" href="#header-rules-an-ingress-with-path-rules-and-header-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
@@ -1597,7 +1611,7 @@ kbd {
           
         </div>
         
-        
+        <a class="btn text-danger" href="#error70-error" data-toggle="collapse">+Show Error</a>
         
         
         
@@ -1605,6 +1619,10 @@ kbd {
         
       </div>
       
+      
+      <div id="error70-error" class="scenario-step-collapse collapse bg-danger p-2 ml-3 mr-3">
+        <pre class="info text-white p-0 m-0">waiting for service (header-normal-right) endpoints available: timed out waiting for the condition</pre>
+      </div>
       
       
       
@@ -1619,14 +1637,14 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
+                    <span class="duration">0s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
           
@@ -1654,8 +1672,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -1689,8 +1707,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -1722,15 +1740,17 @@ kbd {
       
       </div>
     </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 11s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+    <div class="card-footer p-1 border-danger pl-3 pr-3">
+      Duration: 5m0s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
+        <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">3</span>
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">4</span>
+        <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+        
         
         
       </div>
@@ -1742,7 +1762,7 @@ kbd {
   <div class="card m-1">
     <div class="card-body">
       <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario8" class="h5 text-success">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario8" class="h5 text-danger">
           Scenario: <span class="text-muted">An Ingress with path rules and header should send traffic to the matching backend service</span>
         </a>
         <p>  (exact / and header a:b:c matches request / with header right)</p>
@@ -1754,14 +1774,13 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed"> <i class="material-icons text-danger">error</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
+                    <span class="duration">5m0s</span>
                               
           an Ingress resource in a new random namespace          
           <a class="btn text-primary" data-toggle="collapse" href="#header-rules-an-ingress-with-path-rules-and-header-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
@@ -1774,7 +1793,7 @@ kbd {
           
         </div>
         
-        
+        <a class="btn text-danger" href="#error80-error" data-toggle="collapse">+Show Error</a>
         
         
         
@@ -1782,6 +1801,10 @@ kbd {
         
       </div>
       
+      
+      <div id="error80-error" class="scenario-step-collapse collapse bg-danger p-2 ml-3 mr-3">
+        <pre class="info text-white p-0 m-0">waiting for service (header-a-b-c-right) endpoints available: timed out waiting for the condition</pre>
+      </div>
       
       
       
@@ -1796,14 +1819,14 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
+                    <span class="duration">0s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
           
@@ -1831,8 +1854,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -1873,8 +1896,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -1908,8 +1931,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -1941,15 +1964,17 @@ kbd {
       
       </div>
     </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 11s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+    <div class="card-footer p-1 border-danger pl-3 pr-3">
+      Duration: 5m0s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
+        <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">4</span>
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">5</span>
+        <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+        
         
         
       </div>
@@ -1961,7 +1986,7 @@ kbd {
   <div class="card m-1">
     <div class="card-body">
       <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario9" class="h5 text-success">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario9" class="h5 text-danger">
           Scenario: <span class="text-muted">An Ingress with path rules and header should send traffic to the matching backend service</span>
         </a>
         <p>  (exact / and header a:b:c dose not matches request / without header)</p>
@@ -1973,14 +1998,13 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed"> <i class="material-icons text-danger">error</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
+                    <span class="duration">5m0s</span>
                               
           an Ingress resource in a new random namespace          
           <a class="btn text-primary" data-toggle="collapse" href="#header-rules-an-ingress-with-path-rules-and-header-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
@@ -1993,7 +2017,7 @@ kbd {
           
         </div>
         
-        
+        <a class="btn text-danger" href="#error90-error" data-toggle="collapse">+Show Error</a>
         
         
         
@@ -2001,6 +2025,10 @@ kbd {
         
       </div>
       
+      
+      <div id="error90-error" class="scenario-step-collapse collapse bg-danger p-2 ml-3 mr-3">
+        <pre class="info text-white p-0 m-0">waiting for service (without-header-a-b-c) endpoints available: timed out waiting for the condition</pre>
+      </div>
       
       
       
@@ -2015,14 +2043,14 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
+                    <span class="duration">0s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
           
@@ -2050,8 +2078,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -2085,8 +2113,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -2118,15 +2146,17 @@ kbd {
       
       </div>
     </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 11s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+    <div class="card-footer p-1 border-danger pl-3 pr-3">
+      Duration: 5m0s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
+        <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">3</span>
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">4</span>
+        <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+        
         
         
       </div>
@@ -2138,7 +2168,7 @@ kbd {
   <div class="card m-1">
     <div class="card-body">
       <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario10" class="h5 text-success">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario10" class="h5 text-danger">
           Scenario: <span class="text-muted">An Ingress with path rules and header should send traffic to the matching backend service</span>
         </a>
         <p>  (exact / and header a:+/?%#& matches request / with header right)</p>
@@ -2150,14 +2180,13 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed"> <i class="material-icons text-danger">error</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
+                    <span class="duration">5m0s</span>
                               
           an Ingress resource in a new random namespace          
           <a class="btn text-primary" data-toggle="collapse" href="#header-rules-an-ingress-with-path-rules-and-header-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
@@ -2170,7 +2199,7 @@ kbd {
           
         </div>
         
-        
+        <a class="btn text-danger" href="#error100-error" data-toggle="collapse">+Show Error</a>
         
         
         
@@ -2178,6 +2207,10 @@ kbd {
         
       </div>
       
+      
+      <div id="error100-error" class="scenario-step-collapse collapse bg-danger p-2 ml-3 mr-3">
+        <pre class="info text-white p-0 m-0">waiting for service (header-special-character-right) endpoints available: timed out waiting for the condition</pre>
+      </div>
       
       
       
@@ -2192,14 +2225,14 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
+                    <span class="duration">0s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
           
@@ -2227,8 +2260,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -2269,8 +2302,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -2304,8 +2337,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -2337,15 +2370,17 @@ kbd {
       
       </div>
     </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 11s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+    <div class="card-footer p-1 border-danger pl-3 pr-3">
+      Duration: 5m0s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
+        <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">4</span>
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">5</span>
+        <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+        
         
         
       </div>
@@ -2357,7 +2392,7 @@ kbd {
   <div class="card m-1">
     <div class="card-body">
       <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario11" class="h5 text-success">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario11" class="h5 text-danger">
           Scenario: <span class="text-muted">An Ingress with path rules and header should send traffic to the matching backend service</span>
         </a>
         <p>  (exact / and header a:+/?%#& matches request / without header)</p>
@@ -2369,14 +2404,13 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed"> <i class="material-icons text-danger">error</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
+                    <span class="duration">5m0s</span>
                               
           an Ingress resource in a new random namespace          
           <a class="btn text-primary" data-toggle="collapse" href="#header-rules-an-ingress-with-path-rules-and-header-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
@@ -2389,7 +2423,7 @@ kbd {
           
         </div>
         
-        
+        <a class="btn text-danger" href="#error110-error" data-toggle="collapse">+Show Error</a>
         
         
         
@@ -2397,6 +2431,10 @@ kbd {
         
       </div>
       
+      
+      <div id="error110-error" class="scenario-step-collapse collapse bg-danger p-2 ml-3 mr-3">
+        <pre class="info text-white p-0 m-0">waiting for service (header-special-character-no) endpoints available: timed out waiting for the condition</pre>
+      </div>
       
       
       
@@ -2411,14 +2449,14 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
         <div class="text">
           <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
+                    <span class="duration">0s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
           
@@ -2446,8 +2484,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -2481,8 +2519,8 @@ kbd {
       <div class="scenario-step-container">
         
         
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+          <i class="material-icons skipped-color">double_arrow</i>
         </div>
         
         
@@ -2514,15 +2552,17 @@ kbd {
       
       </div>
     </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 11s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+    <div class="card-footer p-1 border-danger pl-3 pr-3">
+      Duration: 5m0s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
+        <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">3</span>
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">4</span>
+        <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+        
         
         
       </div>
@@ -2572,8 +2612,8 @@ kbd {
           datasets: [
             {
               data: [
-                10,
                 2,
+                10,
                 0,
                 0,
                 0,
