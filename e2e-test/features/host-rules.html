@@ -239,18 +239,18 @@ kbd {
         
         
         
-        <span class="tag">@annotations</span>
+        <span class="tag">@sig-network</span>
         
-        <span class="tag">@router.cookie</span>
+        <span class="tag">@conformance</span>
         
         <span class="tag">@release-1.22</span>
         
         
         
-        <h1>Feature: <small>Cookie rules</small></h1>
-        <p>  An Ingress may define routing rules based on the request path.
+        <h1>Feature: <small>Host rules</small></h1>
+        <p>  An Ingress may define routing rules based on the request host.
 
-  If the HTTP request path matches the paths and cookie info in the
+  If the HTTP request host matches one of the hosts in the
   Ingress objects, the traffic is routed to its backend service.</p>
       </div>
       <div class="col-sm-12 col-md-6">
@@ -294,9 +294,9 @@ kbd {
     <div class="card-body">
       <div class="card-title m-0">
         <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario0" class="h5 text-success">
-          Scenario: <span class="text-muted">An Ingress with path rules and cookie should send traffic to the matching backend service</span>
+          Scenario: <span class="text-muted">An Ingress with a host rule should send TLS traffic to the matching backend service</span>
         </a>
-        <p>  (exact / and cookie matches request / with cookie)</p>
+        <p>  (host foo.bar.com matches request foo.bar.com)</p>
       </div>
 
       <div id="scenario0" class="mt-3 collapse show">
@@ -312,13 +312,83 @@ kbd {
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
+                    <span class="duration">0s</span>
                               
-          an Ingress resource in a new random namespace          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace" class="collapse ml-3 mr-3">
+          a new random namespace          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">0s</span>
+                              
+          a self-signed TLS secret named <kbd>conformance-tls</kbd> for the <kbd>foo.bar.com</kbd> hostname          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">20s</span>
+                              
+          an Ingress resource          
+          <a class="btn text-primary" data-toggle="collapse" href="#host-rules-an-ingress-with-a-host-rule-should-send-tls-traffic-to-the-matching-backend-service-an-Ingress-resource">+Show Parameter</a>
+          <div id="host-rules-an-ingress-with-a-host-rule-should-send-tls-traffic-to-the-matching-backend-service-an-Ingress-resource" class="collapse ml-3 mr-3">
             <code>
-              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: cookie-rules<br />  annotations:<br />    bfe.ingress.kubernetes.io/router.cookie: "uid:abcd"<br />spec:<br />  rules:<br />    - host: "exact-path-rules-cookie-uid"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Exact<br />            backend:<br />              service:<br />                name: foo-exact<br />                port:<br />                  number: 3000</pre>
+              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: host-rules<br />spec:<br />  tls:<br />    - hosts:<br />        - foo.bar.com<br />      secretName: conformance-tls<br />  rules:<br />    - host: "*.foo.com"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: wildcard-foo-com<br />                port:<br />                  number: 8080<br /><br />    - host: foo.bar.com<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: foo-bar-com<br />                port:<br />                  number: 80<br /></pre>
             </code>
           </div>
           
@@ -353,7 +423,7 @@ kbd {
         
         
         <div class="text">
-          <span class="keyword highlight">And </span>
+          <span class="keyword highlight">Then </span>
                     <span class="duration">6s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
@@ -391,14 +461,7 @@ kbd {
           <span class="keyword highlight">When </span>
                     <span class="duration">0s</span>
                               
-          I send a <kbd>GET</kbd> request to <kbd>http://exact-path-rules-cookie-uid/</kbd> with header          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-I-send-a--GET--request-to--http---exact-path-rules-cookie-uid---with-header">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-I-send-a--GET--request-to--http---exact-path-rules-cookie-uid---with-header" class="collapse ml-3 mr-3">
-            <code>
-              <pre>{"Cookie": ["uid=abcd"]}</pre>
-            </code>
-          </div>
-          
+          I send a <kbd>GET</kbd> request to <kbd>https://foo.bar.com</kbd>          
           
         </div>
         
@@ -431,6 +494,41 @@ kbd {
         
         <div class="text">
           <span class="keyword highlight">Then </span>
+                    <span class="duration">0s</span>
+                              
+          the secure connection must verify the <kbd>foo.bar.com</kbd> hostname          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">And </span>
                     <span class="duration">0s</span>
                               
           the response status-code must be <kbd>200</kbd>          
@@ -468,7 +566,42 @@ kbd {
           <span class="keyword highlight">And </span>
                     <span class="duration">0s</span>
                               
-          the response must be served by the <kbd>foo-exact</kbd> service          
+          the response must be served by the <kbd>foo-bar-com</kbd> service          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">And </span>
+                    <span class="duration">0s</span>
+                              
+          the request host must be <kbd>foo.bar.com</kbd>          
           
         </div>
         
@@ -493,14 +626,14 @@ kbd {
       </div>
     </div>
     <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 11s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+      Duration: 26s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">5</span>
+        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">9</span>
         
         
       </div>
@@ -513,9 +646,9 @@ kbd {
     <div class="card-body">
       <div class="card-title m-0">
         <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario1" class="h5 text-success">
-          Scenario: <span class="text-muted">An Ingress with path rules and cookie should not send traffic to the matching backend service</span>
+          Scenario: <span class="text-muted">An Ingress with a host rule should send traffic to the matching backend service</span>
         </a>
-        <p>  (exact / and cookie dose not matches request / without cookie)</p>
+        <p>  (host foo.bar.com matches request foo.bar.com)</p>
       </div>
 
       <div id="scenario1" class="mt-3 collapse show">
@@ -531,13 +664,83 @@ kbd {
         
         <div class="text">
           <span class="keyword highlight">Given </span>
+                    <span class="duration">0s</span>
+                              
+          a new random namespace          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">0s</span>
+                              
+          a self-signed TLS secret named <kbd>conformance-tls</kbd> for the <kbd>foo.bar.com</kbd> hostname          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
                     <span class="duration">10s</span>
                               
-          an Ingress resource in a new random namespace          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-cookie-should-not-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-cookie-should-not-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace" class="collapse ml-3 mr-3">
+          an Ingress resource          
+          <a class="btn text-primary" data-toggle="collapse" href="#host-rules-an-ingress-with-a-host-rule-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource">+Show Parameter</a>
+          <div id="host-rules-an-ingress-with-a-host-rule-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource" class="collapse ml-3 mr-3">
             <code>
-              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: cookie-rules<br />  annotations:<br />    bfe.ingress.kubernetes.io/router.cookie: "uid:abcd"<br />spec:<br />  rules:<br />    - host: "exact-path-rules-cookie-uid-req-no-cookie"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Exact<br />            backend:<br />              service:<br />                name: foo-exact<br />                port:<br />                  number: 3000</pre>
+              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: host-rules<br />spec:<br />  tls:<br />    - hosts:<br />        - foo.bar.com<br />      secretName: conformance-tls<br />  rules:<br />    - host: "*.foo.com"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: wildcard-foo-com<br />                port:<br />                  number: 8080<br /><br />    - host: foo.bar.com<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: foo-bar-com<br />                port:<br />                  number: 80<br /></pre>
             </code>
           </div>
           
@@ -572,7 +775,7 @@ kbd {
         
         
         <div class="text">
-          <span class="keyword highlight">And </span>
+          <span class="keyword highlight">Then </span>
                     <span class="duration">6s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
@@ -610,7 +813,7 @@ kbd {
           <span class="keyword highlight">When </span>
                     <span class="duration">0s</span>
                               
-          I send a <kbd>GET</kbd> request to <kbd>http://exact-path-rules-cookie-uid-req-no-cookie/</kbd>          
+          I send a <kbd>GET</kbd> request to <kbd>http://foo.bar.com</kbd>          
           
         </div>
         
@@ -642,10 +845,80 @@ kbd {
         
         
         <div class="text">
-          <span class="keyword highlight">Then </span>
+          <span class="keyword highlight">And </span>
                     <span class="duration">0s</span>
                               
-          the response status-code must be <kbd>500</kbd>          
+          the response status-code must be <kbd>200</kbd>          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">And </span>
+                    <span class="duration">0s</span>
+                              
+          the response must be served by the <kbd>foo-bar-com</kbd> service          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">And </span>
+                    <span class="duration">0s</span>
+                              
+          the request host must be <kbd>foo.bar.com</kbd>          
           
         </div>
         
@@ -677,7 +950,7 @@ kbd {
         
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">4</span>
+        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">8</span>
         
         
       </div>
@@ -690,9 +963,9 @@ kbd {
     <div class="card-body">
       <div class="card-title m-0">
         <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario2" class="h5 text-success">
-          Scenario: <span class="text-muted">An Ingress with path rules and cookie should send traffic to the matching backend service</span>
+          Scenario: <span class="text-muted">An Ingress with a host rule should not route traffic when hostname does not match</span>
         </a>
-        <p>  (exact / and cookie config length 0 matches request / with cookie)</p>
+        <p>  (host foo.bar.com does not match request subdomain.bar.com)</p>
       </div>
 
       <div id="scenario2" class="mt-3 collapse show">
@@ -708,93 +981,9 @@ kbd {
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
-                              
-          an Ingress resource in a new random namespace          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace" class="collapse ml-3 mr-3">
-            <code>
-              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: cookie-rules<br />  annotations:<br />    bfe.ingress.kubernetes.io/router.cookie: ""<br />spec:<br />  rules:<br />    - host: "exact-path-rules-cookie-length0"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Exact<br />            backend:<br />              service:<br />                name: foo-exact-no-cookie<br />                port:<br />                  number: 3000</pre>
-            </code>
-          </div>
-          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
-                              
-          The Ingress status shows the IP address or FQDN where it is exposed          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">When </span>
                     <span class="duration">0s</span>
                               
-          I send a <kbd>GET</kbd> request to <kbd>http://exact-path-rules-cookie-length0/</kbd> with header          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-I-send-a--GET--request-to--http---exact-path-rules-cookie-length0---with-header">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-I-send-a--GET--request-to--http---exact-path-rules-cookie-length0---with-header" class="collapse ml-3 mr-3">
-            <code>
-              <pre>{"Cookie": ["uid=abcd"]}</pre>
-            </code>
-          </div>
-          
+          a new random namespace          
           
         </div>
         
@@ -815,106 +1004,6 @@ kbd {
       
       
       
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">Then </span>
-                    <span class="duration">0s</span>
-                              
-          the response status-code must be <kbd>200</kbd>          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">And </span>
-                    <span class="duration">0s</span>
-                              
-          the response must be served by the <kbd>foo-exact-no-cookie</kbd> service          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </div>
-    </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 11s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
-      <div class="d-inline-block float-right">
-        
-        
-        
-        
-        
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">5</span>
-        
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="col-sm-12 mb-3">
-  <div class="card m-1">
-    <div class="card-body">
-      <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario3" class="h5 text-success">
-          Scenario: <span class="text-muted">An Ingress with path rules and cookie should send traffic to the matching backend service</span>
-        </a>
-        <p>  (exact / and cookie matches request / with cookie)</p>
-      </div>
-
-      <div id="scenario3" class="mt-3 collapse show">
       
       
       <div class="scenario-step-container">
@@ -927,86 +1016,9 @@ kbd {
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">5s</span>
-                              
-          an Ingress resource in a new random namespace          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace" class="collapse ml-3 mr-3">
-            <code>
-              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: cookie-rules<br />  annotations:<br />    bfe.ingress.kubernetes.io/router.cookie: ""<br />spec:<br />  rules:<br />    - host: "exact-path-rules-no-cookie"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Exact<br />            backend:<br />              service:<br />                name: foo-exact-no-cookie<br />                port:<br />                  number: 3000</pre>
-            </code>
-          </div>
-          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
-                              
-          The Ingress status shows the IP address or FQDN where it is exposed          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">When </span>
                     <span class="duration">0s</span>
                               
-          I send a <kbd>GET</kbd> request to <kbd>http://exact-path-rules-no-cookie/</kbd>          
+          a self-signed TLS secret named <kbd>conformance-tls</kbd> for the <kbd>foo.bar.com</kbd> hostname          
           
         </div>
         
@@ -1027,325 +1039,6 @@ kbd {
       
       
       
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">Then </span>
-                    <span class="duration">0s</span>
-                              
-          the response status-code must be <kbd>200</kbd>          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">And </span>
-                    <span class="duration">0s</span>
-                              
-          the response must be served by the <kbd>foo-exact-no-cookie</kbd> service          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </div>
-    </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 11s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
-      <div class="d-inline-block float-right">
-        
-        
-        
-        
-        
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">5</span>
-        
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="col-sm-12 mb-3">
-  <div class="card m-1">
-    <div class="card-body">
-      <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario4" class="h5 text-success">
-          Scenario: <span class="text-muted">An Ingress with path rules and cookie should send traffic to the matching backend service</span>
-        </a>
-        <p>  (exact / and cookie "c_ref:https://www.baidu.com/link" matches request / with right cookie)</p>
-      </div>
-
-      <div id="scenario4" class="mt-3 collapse show">
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">Given </span>
-                    <span class="duration">10s</span>
-                              
-          an Ingress resource in a new random namespace          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace" class="collapse ml-3 mr-3">
-            <code>
-              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: cookie-rules<br />  annotations:<br />    bfe.ingress.kubernetes.io/router.cookie: "c_ref:https://www.baidu.com/link"<br />spec:<br />  rules:<br />    - host: "exact-with-cookie-right"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Exact<br />            backend:<br />              service:<br />                name: exact-cookie-right<br />                port:<br />                  number: 3000</pre>
-            </code>
-          </div>
-          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
-                              
-          The Ingress status shows the IP address or FQDN where it is exposed          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">When </span>
-                    <span class="duration">0s</span>
-                              
-          I send a <kbd>GET</kbd> request to <kbd>http://exact-with-cookie-right/</kbd> with header          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-I-send-a--GET--request-to--http---exact-with-cookie-right---with-header">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-cookie-should-send-traffic-to-the-matching-backend-service-I-send-a--GET--request-to--http---exact-with-cookie-right---with-header" class="collapse ml-3 mr-3">
-            <code>
-              <pre>{"Cookie": ["c_ref=https://www.baidu.com/link"]}</pre>
-            </code>
-          </div>
-          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">Then </span>
-                    <span class="duration">0s</span>
-                              
-          the response status-code must be <kbd>200</kbd>          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">And </span>
-                    <span class="duration">0s</span>
-                              
-          the response must be served by the <kbd>exact-cookie-right</kbd> service          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </div>
-    </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 16s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
-      <div class="d-inline-block float-right">
-        
-        
-        
-        
-        
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">5</span>
-        
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="col-sm-12 mb-3">
-  <div class="card m-1">
-    <div class="card-body">
-      <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario5" class="h5 text-success">
-          Scenario: <span class="text-muted">An Ingress with path rules and error cookie should not send traffic to the matching backend service</span>
-        </a>
-        <p>  (exact / and cookie "c_ref:https://www.baidu.com/" not matches request / with wrong cookie)</p>
-      </div>
-
-      <div id="scenario5" class="mt-3 collapse show">
       
       
       <div class="scenario-step-container">
@@ -1360,11 +1053,11 @@ kbd {
           <span class="keyword highlight">Given </span>
                     <span class="duration">15s</span>
                               
-          an Ingress resource in a new random namespace          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-error-cookie-should-not-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-error-cookie-should-not-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace" class="collapse ml-3 mr-3">
+          an Ingress resource          
+          <a class="btn text-primary" data-toggle="collapse" href="#host-rules-an-ingress-with-a-host-rule-should-not-route-traffic-when-hostname-does-not-match-an-Ingress-resource">+Show Parameter</a>
+          <div id="host-rules-an-ingress-with-a-host-rule-should-not-route-traffic-when-hostname-does-not-match-an-Ingress-resource" class="collapse ml-3 mr-3">
             <code>
-              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: cookie-rules<br />  annotations:<br />    bfe.ingress.kubernetes.io/router.cookie: "c_ref:https://www.baidu.com/"<br />spec:<br />  rules:<br />    - host: "exact-with-cookie-wrong"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Exact<br />            backend:<br />              service:<br />                name: exact-cookie-wrong<br />                port:<br />                  number: 3000</pre>
+              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: host-rules<br />spec:<br />  tls:<br />    - hosts:<br />        - foo.bar.com<br />      secretName: conformance-tls<br />  rules:<br />    - host: "*.foo.com"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: wildcard-foo-com<br />                port:<br />                  number: 8080<br /><br />    - host: foo.bar.com<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: foo-bar-com<br />                port:<br />                  number: 80<br /></pre>
             </code>
           </div>
           
@@ -1399,7 +1092,7 @@ kbd {
         
         
         <div class="text">
-          <span class="keyword highlight">And </span>
+          <span class="keyword highlight">Then </span>
                     <span class="duration">6s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
@@ -1437,14 +1130,7 @@ kbd {
           <span class="keyword highlight">When </span>
                     <span class="duration">0s</span>
                               
-          I send a <kbd>GET</kbd> request to <kbd>http://exact-with-cookie-wrong/</kbd> with header          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-error-cookie-should-not-send-traffic-to-the-matching-backend-service-I-send-a--GET--request-to--http---exact-with-cookie-wrong---with-header">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-error-cookie-should-not-send-traffic-to-the-matching-backend-service-I-send-a--GET--request-to--http---exact-with-cookie-wrong---with-header" class="collapse ml-3 mr-3">
-            <code>
-              <pre>{"Cookie": ["c_ref=https://www.baidu.com/link"]}</pre>
-            </code>
-          </div>
-          
+          I send a <kbd>GET</kbd> request to <kbd>http://subdomain.bar.com</kbd>          
           
         </div>
         
@@ -1511,7 +1197,7 @@ kbd {
         
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">4</span>
+        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">6</span>
         
         
       </div>
@@ -1523,13 +1209,13 @@ kbd {
   <div class="card m-1">
     <div class="card-body">
       <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario6" class="h5 text-success">
-          Scenario: <span class="text-muted">An Ingress with path rules and cookie should not send traffic to the matching backend service</span>
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario3" class="h5 text-success">
+          Scenario: <span class="text-muted">An Ingress with a wildcard host rule should send traffic to the matching backend service</span>
         </a>
-        <p>  (exact / and cookie "c_ref:https://www.baidu.com/" not matches request / with no cookie)</p>
+        <p>  (Matches based on shared suffix)</p>
       </div>
 
-      <div id="scenario6" class="mt-3 collapse show">
+      <div id="scenario3" class="mt-3 collapse show">
       
       
       <div class="scenario-step-container">
@@ -1542,86 +1228,86 @@ kbd {
         
         <div class="text">
           <span class="keyword highlight">Given </span>
-                    <span class="duration">10s</span>
+                    <span class="duration">0s</span>
                               
-          an Ingress resource in a new random namespace          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-cookie-should-not-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-cookie-should-not-send-traffic-to-the-matching-backend-service-an-Ingress-resource-in-a-new-random-namespace" class="collapse ml-3 mr-3">
+          a new random namespace          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">0s</span>
+                              
+          a self-signed TLS secret named <kbd>conformance-tls</kbd> for the <kbd>foo.bar.com</kbd> hostname          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">20s</span>
+                              
+          an Ingress resource          
+          <a class="btn text-primary" data-toggle="collapse" href="#host-rules-an-ingress-with-a-wildcard-host-rule-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource">+Show Parameter</a>
+          <div id="host-rules-an-ingress-with-a-wildcard-host-rule-should-send-traffic-to-the-matching-backend-service-an-Ingress-resource" class="collapse ml-3 mr-3">
             <code>
-              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: cookie-rules<br />  annotations:<br />    bfe.ingress.kubernetes.io/router.cookie: "c_ref:https://www.baidu.com/"<br />spec:<br />  rules:<br />    - host: "exact-with-no-cookie"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Exact<br />            backend:<br />              service:<br />                name: exact-cookie-wrong<br />                port:<br />                  number: 3000</pre>
+              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: host-rules<br />spec:<br />  tls:<br />    - hosts:<br />        - foo.bar.com<br />      secretName: conformance-tls<br />  rules:<br />    - host: "*.foo.com"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: wildcard-foo-com<br />                port:<br />                  number: 8080<br /><br />    - host: foo.bar.com<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: foo-bar-com<br />                port:<br />                  number: 80<br /></pre>
             </code>
           </div>
           
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">And </span>
-                    <span class="duration">6s</span>
-                              
-          The Ingress status shows the IP address or FQDN where it is exposed          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">When </span>
-                    <span class="duration">0s</span>
-                              
-          I send a <kbd>GET</kbd> request to <kbd>http://exact-with-no-cookie/</kbd>          
           
         </div>
         
@@ -1654,113 +1340,6 @@ kbd {
         
         <div class="text">
           <span class="keyword highlight">Then </span>
-                    <span class="duration">0s</span>
-                              
-          the response status-code must be <kbd>500</kbd>          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </div>
-    </div>
-    <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 16s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
-      <div class="d-inline-block float-right">
-        
-        
-        
-        
-        
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">4</span>
-        
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="col-sm-12 mb-3">
-  <div class="card m-1">
-    <div class="card-body">
-      <div class="card-title m-0">
-        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario7" class="h5 text-success">
-          Scenario: <span class="text-muted">An Ingress with path rules and multi cookie should send traffic to the matching backend service, use last config</span>
-        </a>
-        <p>  (exact / and multi cookie "cookie_key:cookie_value" and "cookie_key1:cookie_value1" matches request / with cookie)</p>
-      </div>
-
-      <div id="scenario7" class="mt-3 collapse show">
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">Given </span>
-                    <span class="duration">10s</span>
-                              
-          an Ingress resource in a new random namespace          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-multi-cookie-should-send-traffic-to-the-matching-backend-service--use-last-config-an-Ingress-resource-in-a-new-random-namespace">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-multi-cookie-should-send-traffic-to-the-matching-backend-service--use-last-config-an-Ingress-resource-in-a-new-random-namespace" class="collapse ml-3 mr-3">
-            <code>
-              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: multicookie-rules<br />  annotations:<br />    bfe.ingress.kubernetes.io/router.cookie: "cookie_key:cookie_value"<br />    bfe.ingress.kubernetes.io/router.cookie: "cookie_key1:cookie_value1"<br />spec:<br />  rules:<br />    - host: "multi-coookie-rule"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Exact<br />            backend:<br />              service:<br />                name: multi-cookie<br />                port:<br />                  number: 3000</pre>
-            </code>
-          </div>
-          
-          
-        </div>
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="scenario-step-container">
-        
-        
-        <div class="label" title="Success">
-          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
-        </div>
-        
-        
-        <div class="text">
-          <span class="keyword highlight">And </span>
                     <span class="duration">6s</span>
                               
           The Ingress status shows the IP address or FQDN where it is exposed          
@@ -1798,14 +1377,7 @@ kbd {
           <span class="keyword highlight">When </span>
                     <span class="duration">0s</span>
                               
-          I send a <kbd>GET</kbd> request to <kbd>http://multi-coookie-rule/</kbd> with header          
-          <a class="btn text-primary" data-toggle="collapse" href="#cookie-rules-an-ingress-with-path-rules-and-multi-cookie-should-send-traffic-to-the-matching-backend-service--use-last-config-I-send-a--GET--request-to--http---multi-coookie-rule---with-header">+Show Parameter</a>
-          <div id="cookie-rules-an-ingress-with-path-rules-and-multi-cookie-should-send-traffic-to-the-matching-backend-service--use-last-config-I-send-a--GET--request-to--http---multi-coookie-rule---with-header" class="collapse ml-3 mr-3">
-            <code>
-              <pre>{"Cookie": ["cookie_key1=cookie_value1"]}</pre>
-            </code>
-          </div>
-          
+          I send a <kbd>GET</kbd> request to <kbd>http://bar.foo.com</kbd>          
           
         </div>
         
@@ -1875,7 +1447,42 @@ kbd {
           <span class="keyword highlight">And </span>
                     <span class="duration">0s</span>
                               
-          the response must be served by the <kbd>multi-cookie</kbd> service          
+          the response must be served by the <kbd>wildcard-foo-com</kbd> service          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">And </span>
+                    <span class="duration">0s</span>
+                              
+          the request host must be <kbd>bar.foo.com</kbd>          
           
         </div>
         
@@ -1900,14 +1507,508 @@ kbd {
       </div>
     </div>
     <div class="card-footer p-1 border-success pl-3 pr-3">
-      Duration: 16s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+      Duration: 26s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
       <div class="d-inline-block float-right">
         
         
         
         
         
-        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">5</span>
+        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">8</span>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12 mb-3">
+  <div class="card m-1">
+    <div class="card-body">
+      <div class="card-title m-0">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario4" class="h5 text-success">
+          Scenario: <span class="text-muted">An Ingress with a wildcard host rule should not route traffic matching on more than a single dns label</span>
+        </a>
+        <p>  (No match, wildcard only covers a single DNS label)</p>
+      </div>
+
+      <div id="scenario4" class="mt-3 collapse show">
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">0s</span>
+                              
+          a new random namespace          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">0s</span>
+                              
+          a self-signed TLS secret named <kbd>conformance-tls</kbd> for the <kbd>foo.bar.com</kbd> hostname          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">15s</span>
+                              
+          an Ingress resource          
+          <a class="btn text-primary" data-toggle="collapse" href="#host-rules-an-ingress-with-a-wildcard-host-rule-should-not-route-traffic-matching-on-more-than-a-single-dns-label-an-Ingress-resource">+Show Parameter</a>
+          <div id="host-rules-an-ingress-with-a-wildcard-host-rule-should-not-route-traffic-matching-on-more-than-a-single-dns-label-an-Ingress-resource" class="collapse ml-3 mr-3">
+            <code>
+              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: host-rules<br />spec:<br />  tls:<br />    - hosts:<br />        - foo.bar.com<br />      secretName: conformance-tls<br />  rules:<br />    - host: "*.foo.com"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: wildcard-foo-com<br />                port:<br />                  number: 8080<br /><br />    - host: foo.bar.com<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: foo-bar-com<br />                port:<br />                  number: 80<br /></pre>
+            </code>
+          </div>
+          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Then </span>
+                    <span class="duration">6s</span>
+                              
+          The Ingress status shows the IP address or FQDN where it is exposed          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">When </span>
+                    <span class="duration">0s</span>
+                              
+          I send a <kbd>GET</kbd> request to <kbd>http://baz.bar.foo.com</kbd>          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Then </span>
+                    <span class="duration">0s</span>
+                              
+          the response status-code must be <kbd>500</kbd>          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      </div>
+    </div>
+    <div class="card-footer p-1 border-success pl-3 pr-3">
+      Duration: 21s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+      <div class="d-inline-block float-right">
+        
+        
+        
+        
+        
+        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">6</span>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12 mb-3">
+  <div class="card m-1">
+    <div class="card-body">
+      <div class="card-title m-0">
+        <a data-toggle="collapse" href="#" aria-expanded="true" aria-controls="scenario5" class="h5 text-success">
+          Scenario: <span class="text-muted">An Ingress with a wildcard host rule should not route traffic matching no dns label</span>
+        </a>
+        <p>  (No match, wildcard only covers a single DNS label)</p>
+      </div>
+
+      <div id="scenario5" class="mt-3 collapse show">
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">0s</span>
+                              
+          a new random namespace          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">0s</span>
+                              
+          a self-signed TLS secret named <kbd>conformance-tls</kbd> for the <kbd>foo.bar.com</kbd> hostname          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Given </span>
+                    <span class="duration">10s</span>
+                              
+          an Ingress resource          
+          <a class="btn text-primary" data-toggle="collapse" href="#host-rules-an-ingress-with-a-wildcard-host-rule-should-not-route-traffic-matching-no-dns-label-an-Ingress-resource">+Show Parameter</a>
+          <div id="host-rules-an-ingress-with-a-wildcard-host-rule-should-not-route-traffic-matching-no-dns-label-an-Ingress-resource" class="collapse ml-3 mr-3">
+            <code>
+              <pre>apiVersion: networking.k8s.io/v1<br />kind: Ingress<br />metadata:<br />  name: host-rules<br />spec:<br />  tls:<br />    - hosts:<br />        - foo.bar.com<br />      secretName: conformance-tls<br />  rules:<br />    - host: "*.foo.com"<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: wildcard-foo-com<br />                port:<br />                  number: 8080<br /><br />    - host: foo.bar.com<br />      http:<br />        paths:<br />          - path: /<br />            pathType: Prefix<br />            backend:<br />              service:<br />                name: foo-bar-com<br />                port:<br />                  number: 80<br /></pre>
+            </code>
+          </div>
+          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Then </span>
+                    <span class="duration">3s</span>
+                              
+          The Ingress status shows the IP address or FQDN where it is exposed          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">When </span>
+                    <span class="duration">0s</span>
+                              
+          I send a <kbd>GET</kbd> request to <kbd>http://foo.com</kbd>          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="scenario-step-container">
+        
+        
+        <div class="label" title="Success">
+          <i class="material-icons passed-color" data-toggle="tooltip" data-placement="top" title="Step passed">check_circle</i>
+        </div>
+        
+        
+        <div class="text">
+          <span class="keyword highlight">Then </span>
+                    <span class="duration">0s</span>
+                              
+          the response status-code must be <kbd>500</kbd>          
+          
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      </div>
+    </div>
+    <div class="card-footer p-1 border-success pl-3 pr-3">
+      Duration: 13s <span class="new badge"><i class="material-icons" style="font-size: 15px;">query_builder</i></span>
+      <div class="d-inline-block float-right">
+        
+        
+        
+        
+        
+        <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">6</span>
         
         
       </div>
@@ -1957,7 +2058,7 @@ kbd {
           datasets: [
             {
               data: [
-                8,
+                6,
                 0,
                 0,
                 0,
