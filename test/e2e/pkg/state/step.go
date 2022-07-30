@@ -17,6 +17,7 @@ package state
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -29,15 +30,20 @@ import (
 func (s *Scenario) AnIngressResourceInANewRandomNamespace(spec *godog.DocString) error {
 	ingress, err := s.beforeCreateAnIngressResourceInANewRandomNamespace(spec)
 	if err != nil {
+		log.Printf("err beforeCreateAnIngressResourceInANewRandomNamespace: %s", err.Error())
 		return err
 	}
+	log.Println("beforeCreateAnIngressResourceInANewRandomNamespace")
 
 	err = kubernetes.NewIngress(kubernetes.KubeClient, s.Namespace, ingress)
 	if err != nil {
+		log.Printf("err kubernetes.NewIngress: %s", err.Error())
 		return err
 	}
+	log.Println("kubernetes.NewIngress")
 
 	s.IngressName = ingress.GetName()
+	log.Println("ingress.GetName()")
 
 	return nil
 }
@@ -61,20 +67,26 @@ func (s *Scenario) AnIngressResourceInANewRandomNamespaceShouldNotCreate(spec *g
 func (s *Scenario) beforeCreateAnIngressResourceInANewRandomNamespace(spec *godog.DocString) (*netv1.Ingress, error) {
 	ns, err := kubernetes.NewNamespace(kubernetes.KubeClient)
 	if err != nil {
+		log.Printf("kubernetes.NewNamespace: %s", err.Error())
 		return nil, err
 	}
+	log.Println("kubernetes.NewNamespace")
 
 	s.Namespace = ns
 
 	ingress, err := kubernetes.IngressFromManifest(s.Namespace, spec.Content)
 	if err != nil {
+		log.Printf("kubernetes.IngressFromManifest: %s", err.Error())
 		return nil, err
 	}
+	log.Println("kubernetes.IngressFromManifest")
 
 	err = kubernetes.DeploymentsFromIngress(kubernetes.KubeClient, ingress)
 	if err != nil {
+		log.Printf("kubernetes.DeploymentsFromIngress: %s", err.Error())
 		return nil, err
 	}
+	log.Println("kubernetes.DeploymentsFromIngress")
 	return ingress, nil
 }
 
