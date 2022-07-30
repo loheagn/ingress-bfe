@@ -17,6 +17,8 @@ limitations under the License.
 package cookie
 
 import (
+	"log"
+
 	"github.com/cucumber/godog"
 	"github.com/cucumber/messages-go/v16"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -44,8 +46,14 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 	ctx.Step(`^I send a "([^"]*)" request to "([^"]*)"$`, state.ISendARequestTo)
 
 	ctx.BeforeScenario(func(*godog.Scenario) {
+		log.Println("bfore ctx.BeforeScenario ", state)
 		state = tstate.New()
+		log.Println("after ctx.BeforeScenario ", state)
 	})
+	//ctx.Before(func(ctx context.Context, sc *godog.Scenario) (context.Context, error) {
+	//	state = tstate.New()
+	//	return ctx, nil
+	//})
 
 	ctx.AfterScenario(func(*messages.Pickle, error) {
 		// delete namespace an all the content

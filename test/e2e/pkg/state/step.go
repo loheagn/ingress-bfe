@@ -28,6 +28,7 @@ import (
 )
 
 func (s *Scenario) AnIngressResourceInANewRandomNamespace(spec *godog.DocString) error {
+	log.Println(s)
 	ingress, err := s.beforeCreateAnIngressResourceInANewRandomNamespace(spec)
 	if err != nil {
 		log.Printf("err beforeCreateAnIngressResourceInANewRandomNamespace: %s", err.Error())
