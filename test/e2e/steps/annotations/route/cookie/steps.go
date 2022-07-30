@@ -17,20 +17,10 @@ limitations under the License.
 package cookie
 
 import (
-	"log"
-
-	"github.com/cucumber/godog"
-	"github.com/cucumber/messages-go/v16"
-	"k8s.io/apimachinery/pkg/util/sets"
-
 	"github.com/bfenetworks/ingress-bfe/test/e2e/pkg/kubernetes"
 	tstate "github.com/bfenetworks/ingress-bfe/test/e2e/pkg/state"
-)
-
-var (
-	state *tstate.Scenario
-
-	resultStatus map[int]sets.String
+	"github.com/cucumber/godog"
+	"github.com/cucumber/messages-go/v16"
 )
 
 // IMPORTANT: Steps definitions are generated and should not be modified
@@ -38,6 +28,7 @@ var (
 
 // InitializeScenario configures the Feature to test
 func InitializeScenario(ctx *godog.ScenarioContext) {
+	var state *tstate.Scenario
 	ctx.Step(`^an Ingress resource in a new random namespace$`, state.AnIngressResourceInANewRandomNamespace)
 	ctx.Step(`^The Ingress status shows the IP address or FQDN where it is exposed$`, state.TheIngressStatusShowsTheIPAddressOrFQDNWhereItIsExposed)
 	ctx.Step(`^I send a "([^"]*)" request to "([^"]*)" with header$`, state.ISendARequestToWithHeader)
@@ -46,17 +37,8 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 	ctx.Step(`^I send a "([^"]*)" request to "([^"]*)"$`, state.ISendARequestTo)
 
 	ctx.BeforeScenario(func(*godog.Scenario) {
-		log.Println("bfore ctx.BeforeScenario ", state)
 		state = tstate.New()
-		log.Println(tstate.New())
-		log.Println("after ctx.BeforeScenario ", state)
-		log.Println(state)
-		log.Println("are you kidding?! ", state)
 	})
-	//ctx.Before(func(ctx context.Context, sc *godog.Scenario) (context.Context, error) {
-	//	state = tstate.New()
-	//	return ctx, nil
-	//})
 
 	ctx.AfterScenario(func(*messages.Pickle, error) {
 		// delete namespace an all the content
