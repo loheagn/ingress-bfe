@@ -71,6 +71,8 @@ func (s *Scenario) beforeCreateAnIngressResourceInANewRandomNamespace(spec *godo
 		return nil, err
 	}
 	log.Println("kubernetes.NewNamespace")
+	log.Println(s == nil)
+	log.Println(s.Namespace)
 
 	s.Namespace = ns
 
