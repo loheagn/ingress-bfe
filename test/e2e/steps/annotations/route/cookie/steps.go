@@ -48,7 +48,10 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 	ctx.BeforeScenario(func(*godog.Scenario) {
 		log.Println("bfore ctx.BeforeScenario ", state)
 		state = tstate.New()
+		log.Println(tstate.New())
 		log.Println("after ctx.BeforeScenario ", state)
+		log.Println(state)
+		log.Println("are you kidding?! ", state)
 	})
 	//ctx.Before(func(ctx context.Context, sc *godog.Scenario) (context.Context, error) {
 	//	state = tstate.New()
