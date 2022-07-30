@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/cucumber/godog"
 	"github.com/cucumber/messages-go/v16"
@@ -42,11 +43,11 @@ var (
 // InitializeScenario configures the Feature to test
 func InitializeScenario(ctx *godog.ScenarioContext) {
 	ctx.Step(`^an Ingress with service info "([^"]*)" resource in a new random namespace$`, anIngressWithServiceInfoResourceInANewRandomNamespace)
-	ctx.Step(`^The Ingress status shows the IP address or FQDN where it is exposed$`, state.TheIngressStatusShowsTheIPAddressOrFQDNWhereItIsExposed)
+	ctx.Step(`^The Ingress status shows the IP address or FQDN where it is exposed$`, theIngressStatusShowsTheIPAddressOrFQDNWhereItIsExposed)
 	ctx.Step(`^I send (\d+) "([^"]*)" requests to "([^"]*)"$`, iSendRequestsTo)
 	ctx.Step(`^the response status-code must be (\d+) the response body should contain the IP address of (\d+) different Kubernetes pods$`, theResponseStatuscodeMustBeTheResponseBodyShouldContainTheIPAddressOfDifferentKubernetesPods)
 	ctx.Step(`^the response must be served by one of "([^"]*)" service$`, theResponseMustBeServedByOneOfService)
-	ctx.Step(`^The Ingress status should not be success$`, state.TheIngressStatusShouldNotBeSuccess)
+	ctx.Step(`^The Ingress status should not be success$`, theIngressStatusShouldNotBeSuccess)
 
 	ctx.BeforeScenario(func(*godog.Scenario) {
 		state = tstate.New()
@@ -86,6 +87,19 @@ func anIngressWithServiceInfoResourceInANewRandomNamespace(serviceInfo string, s
 	state.IngressName = ingress.GetName()
 
 	return nil
+}
+
+func theIngressStatusShowsTheIPAddressOrFQDNWhereItIsExposed() error {
+	ingress, err := kubernetes.WaitForIngressAddress(kubernetes.KubeClient, state.Namespace, state.IngressName)
+	if err != nil {
+		return err
+	}
+
+	state.IPOrFQDN = ingress
+
+	time.Sleep(3 * time.Second)
+
+	return err
 }
 
 func iSendRequestsTo(totalRequest int, method string, rawURL string) error {
@@ -131,5 +145,14 @@ func theResponseMustBeServedByOneOfService(serviceInfo string) error {
 			return fmt.Errorf("service info %s not exist in request info", serviceList[i])
 		}
 	}
+	return nil
+}
+
+func theIngressStatusShouldNotBeSuccess() error {
+	_, err := kubernetes.WaitForIngressAddress(kubernetes.KubeClient, state.Namespace, state.IngressName)
+	if err == nil {
+		return fmt.Errorf("create ingress should return error")
+	}
+
 	return nil
 }

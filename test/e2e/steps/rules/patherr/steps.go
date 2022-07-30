@@ -17,6 +17,8 @@ limitations under the License.
 package patherr
 
 import (
+	"fmt"
+
 	"github.com/cucumber/godog"
 	"github.com/cucumber/messages-go/v16"
 
@@ -33,7 +35,7 @@ var (
 
 // InitializeScenario configures the Feature to test
 func InitializeScenario(ctx *godog.ScenarioContext) {
-	ctx.Step(`^an Ingress resource in a new random namespace should not create$`, state.AnIngressResourceInANewRandomNamespaceShouldNotCreate)
+	ctx.Step(`^an Ingress resource in a new random namespace should not create$`, anIngressResourceInANewRandomNamespaceShouldNotCreate)
 
 	ctx.BeforeScenario(func(*godog.Scenario) {
 		state = tstate.New()
@@ -43,4 +45,32 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 		// delete namespace an all the content
 		_ = kubernetes.DeleteNamespace(kubernetes.KubeClient, state.Namespace)
 	})
+}
+
+func anIngressResourceInANewRandomNamespaceShouldNotCreate(spec *godog.DocString) error {
+	ns, err := kubernetes.NewNamespace(kubernetes.KubeClient)
+	if err != nil {
+		return err
+	}
+
+	state.Namespace = ns
+
+	ingress, err := kubernetes.IngressFromManifest(state.Namespace, spec.Content)
+	if err != nil {
+		return err
+	}
+
+	err = kubernetes.DeploymentsFromIngress(kubernetes.KubeClient, ingress)
+	if err != nil {
+		return err
+	}
+
+	err = kubernetes.NewIngress(kubernetes.KubeClient, state.Namespace, ingress)
+	if err == nil {
+		return fmt.Errorf("create ingress should return error")
+	}
+
+	state.IngressName = ingress.GetName()
+
+	return nil
 }

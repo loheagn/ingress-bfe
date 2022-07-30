@@ -35,7 +35,7 @@ var (
 
 // InitializeScenario configures the Feature to test
 func InitializeScenario(ctx *godog.ScenarioContext) {
-	ctx.Step(`^an Ingress resource in a new random namespace$`, state.AnIngressResourceInANewRandomNamespace)
+	ctx.Step(`^an Ingress resource in a new random namespace$`, anIngressResourceInANewRandomNamespace)
 	ctx.Step(`^The Ingress status should not contain the IP address or FQDN$`, theIngressStatusShouldNotContainTheIPAddressOrFQDN)
 
 	ctx.BeforeScenario(func(*godog.Scenario) {
@@ -46,6 +46,34 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 		// delete namespace an all the content
 		_ = kubernetes.DeleteNamespace(kubernetes.KubeClient, state.Namespace)
 	})
+}
+
+func anIngressResourceInANewRandomNamespace(spec *godog.DocString) error {
+	ns, err := kubernetes.NewNamespace(kubernetes.KubeClient)
+	if err != nil {
+		return err
+	}
+
+	state.Namespace = ns
+
+	ingress, err := kubernetes.IngressFromManifest(state.Namespace, spec.Content)
+	if err != nil {
+		return err
+	}
+
+	err = kubernetes.DeploymentsFromIngress(kubernetes.KubeClient, ingress)
+	if err != nil {
+		return err
+	}
+
+	err = kubernetes.NewIngress(kubernetes.KubeClient, state.Namespace, ingress)
+	if err != nil {
+		return err
+	}
+
+	state.IngressName = ingress.GetName()
+
+	return nil
 }
 
 func theIngressStatusShouldNotContainTheIPAddressOrFQDN() error {
