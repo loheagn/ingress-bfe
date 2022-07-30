@@ -164,9 +164,22 @@ func TestSuite(t *testing.T) {
 	for feature, initFunc := range activeFeatures {
 		<-queue
 		go func(feature string, init InitialFunc) {
-			err := testFeature(feature, init)
-			if err != nil {
+			timeout := time.After(20 * time.Minute)
+			done := make(chan bool)
+			go func() {
+
+				err := testFeature(feature, init)
+				if err != nil {
+					failed = true
+				}
+
+				done <- true
+			}()
+			select {
+			case <-timeout:
 				failed = true
+				t.Logf("%s time out", feature)
+			case <-done:
 			}
 			queue <- 1
 		}(feature, initFunc)
