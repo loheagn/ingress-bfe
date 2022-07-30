@@ -41,7 +41,7 @@ TEST_PARALLEL="${TEST_PARALLEL:-5}"
     --wait-time-for-ingress-status="${WAIT_FOR_STATUS_TIMEOUT}" \
     --wait-time-for-ready="${WAIT_FOR_STATUS_TIMEOUT}" \
     --test.timeout="${TEST_TIMEOUT}" \
-    --feature-parallel="${TEST_PARALLEL}"
+    --feature-parallel=1
 ret=$?
 
 exit 0
