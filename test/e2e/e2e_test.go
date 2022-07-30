@@ -164,7 +164,7 @@ func TestSuite(t *testing.T) {
 	for feature, initFunc := range activeFeatures {
 		<-queue
 		go func(feature string, init InitialFunc) {
-			timeout := time.After(20 * time.Minute)
+			timeout := time.After(1 * time.Hour)
 			done := make(chan bool)
 			go func() {
 
