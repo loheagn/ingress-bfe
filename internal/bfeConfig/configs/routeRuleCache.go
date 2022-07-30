@@ -92,13 +92,14 @@ func (c *RouteRuleCache) UpdateByIngress(ingress *netv1.Ingress) error {
 	return c.BaseCache.UpdateByIngressFramework(
 		ingress,
 		nil,
-		func(ingress *netv1.Ingress, host, path string) cache.Rule {
+		func(ingress *netv1.Ingress, host, path string, httpPath netv1.HTTPIngressPath) cache.Rule {
+			ingressName := util.NamespacedName(ingress.Namespace, ingress.Name)
 			return newRouteRule(
-				util.NamespacedName(ingress.Namespace, ingress.Name),
+				ingressName,
 				host,
 				path,
 				ingress.Annotations,
-				ingress.ClusterName,
+				util.ClusterName(ingressName, httpPath.Backend.Service),
 				ingress.CreationTimestamp.Time,
 			)
 		},

@@ -25,11 +25,11 @@ import (
 	"os/signal"
 	"path"
 	"path/filepath"
+	"strings"
 	"syscall"
 	"testing"
 	"time"
 
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/annotations/redirect"
 	"github.com/cucumber/godog"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/klog/v2"
@@ -139,7 +139,7 @@ var (
 		"features/annotations/route/header.feature":         {header.InitializeScenario, nil},
 		"features/annotations/route/priority.feature":       {priority.InitializeScenario, nil},
 		"features/annotations/balance/load_balance.feature": {loadbalance.InitializeScenario, nil},
-		"features/annotations/redirect/redirect.feature":    {redirect.InitializeScenario, nil},
+		//"features/annotations/redirect/redirect.feature":    {redirect.InitializeScenario, nil},
 	}
 )
 
@@ -148,12 +148,12 @@ func TestSuite(t *testing.T) {
 
 	activeFeatures := make(map[string]InitialFunc)
 	//activeFeatures["features/annotations/redirect/redirect.feature"] = InitialFunc{redirect.InitializeScenario, nil}
-	activeFeatures["features/conformance/path_rules.feature"] = InitialFunc{pathrules.InitializeScenario, pathrules.InitializeSuite}
-	//for file, init := range features {
-	//	if strings.HasPrefix(file, godogTestFeature) {
-	//		activeFeatures[file] = init
-	//	}
-	//}
+	//activeFeatures["features/conformance/path_rules.feature"] = InitialFunc{pathrules.InitializeScenario, pathrules.InitializeSuite}
+	for file, init := range features {
+		if strings.HasPrefix(file, godogTestFeature) {
+			activeFeatures[file] = init
+		}
+	}
 
 	queue := make(chan int, FeatureParallel)
 

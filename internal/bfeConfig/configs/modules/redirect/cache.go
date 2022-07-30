@@ -45,7 +45,7 @@ func (c redirectRuleCache) UpdateByIngress(ingress *netv1.Ingress) error {
 		func() (bool, error) {
 			return action != nil, err
 		},
-		func(ingress *netv1.Ingress, host, path string) cache.Rule {
+		func(ingress *netv1.Ingress, host, path string, _ netv1.HTTPIngressPath) cache.Rule {
 			return &redirectRule{
 				BaseRule: cache.NewBaseRule(
 					util.NamespacedName(ingress.Namespace, ingress.Name),

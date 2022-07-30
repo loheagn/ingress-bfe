@@ -41,7 +41,7 @@ type httpBaseCache struct {
 	RuleMap map[string]map[string][]Rule
 }
 
-type BuildRuleFunc func(ingress *netv1.Ingress, host, path string) Rule
+type BuildRuleFunc func(ingress *netv1.Ingress, host, path string, httpPath netv1.HTTPIngressPath) Rule
 
 type BeforeUpdateIngressHook func() (bool, error)
 
@@ -149,7 +149,7 @@ func (c *BaseCache) addRuleToBaseCache(ingress *netv1.Ingress, host string, http
 	if httpPath.PathType == nil || *httpPath.PathType == netv1.PathTypePrefix || *httpPath.PathType == netv1.PathTypeImplementationSpecific {
 		path = path + "*"
 	}
-	rule := newRuleFunc(ingress, host, path)
+	rule := newRuleFunc(ingress, host, path, httpPath)
 	return c.BaseRules.put(rule)
 }
 
