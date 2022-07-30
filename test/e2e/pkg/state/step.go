@@ -74,6 +74,10 @@ func (s *Scenario) beforeCreateAnIngressResourceInANewRandomNamespace(spec *godo
 
 	s.Namespace = ns
 
+	log.Println("s.Namespace = ns")
+
+	log.Println(s.Namespace, spec.Content)
+
 	ingress, err := kubernetes.IngressFromManifest(s.Namespace, spec.Content)
 	if err != nil {
 		log.Printf("kubernetes.IngressFromManifest: %s", err.Error())
