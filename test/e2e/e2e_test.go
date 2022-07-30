@@ -37,20 +37,7 @@ import (
 	"github.com/bfenetworks/ingress-bfe/test/e2e/pkg/http"
 	"github.com/bfenetworks/ingress-bfe/test/e2e/pkg/kubernetes"
 	"github.com/bfenetworks/ingress-bfe/test/e2e/pkg/kubernetes/templates"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/annotations/balance/loadbalance"
 	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/annotations/route/cookie"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/annotations/route/header"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/annotations/route/priority"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/conformance/hostrules"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/conformance/ingressclass"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/conformance/loadbalancing"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/conformance/pathrules"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/rules/host1"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/rules/host2"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/rules/multipleingress"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/rules/path1"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/rules/path2"
-	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/rules/patherr"
 )
 
 var (
@@ -125,20 +112,20 @@ type InitialFunc struct {
 
 var (
 	features = map[string]InitialFunc{
-		"features/conformance/host_rules.feature":           {hostrules.InitializeScenario, nil},
-		"features/conformance/ingress_class.feature":        {ingressclass.InitializeScenario, nil},
-		"features/conformance/load_balancing.feature":       {loadbalancing.InitializeScenario, nil},
-		"features/conformance/path_rules.feature":           {pathrules.InitializeScenario, pathrules.InitializeSuite},
-		"features/rules/host_rule1.feature":                 {host1.InitializeScenario, nil},
-		"features/rules/host_rule2.feature":                 {host2.InitializeScenario, nil},
-		"features/rules/multiple_ingress.feature":           {multipleingress.InitializeScenario, nil},
-		"features/rules/path_rule1.feature":                 {path1.InitializeScenario, path1.InitializeSuite},
-		"features/rules/path_rule2.feature":                 {path2.InitializeScenario, path2.InitializeSuite},
-		"features/rules/path_err.feature":                   {patherr.InitializeScenario, nil},
-		"features/annotations/route/cookie.feature":         {cookie.InitializeScenario, nil},
-		"features/annotations/route/header.feature":         {header.InitializeScenario, nil},
-		"features/annotations/route/priority.feature":       {priority.InitializeScenario, nil},
-		"features/annotations/balance/load_balance.feature": {loadbalance.InitializeScenario, nil},
+		//"features/conformance/host_rules.feature":           {hostrules.InitializeScenario, nil},
+		//"features/conformance/ingress_class.feature":        {ingressclass.InitializeScenario, nil},
+		//"features/conformance/load_balancing.feature":       {loadbalancing.InitializeScenario, nil},
+		//"features/conformance/path_rules.feature":           {pathrules.InitializeScenario, pathrules.InitializeSuite},
+		//"features/rules/host_rule1.feature":                 {host1.InitializeScenario, nil},
+		//"features/rules/host_rule2.feature":                 {host2.InitializeScenario, nil},
+		//"features/rules/multiple_ingress.feature":           {multipleingress.InitializeScenario, nil},
+		//"features/rules/path_rule1.feature":                 {path1.InitializeScenario, path1.InitializeSuite},
+		//"features/rules/path_rule2.feature":                 {path2.InitializeScenario, path2.InitializeSuite},
+		//"features/rules/path_err.feature":                   {patherr.InitializeScenario, nil},
+		"features/annotations/route/cookie.feature": {cookie.InitializeScenario, nil},
+		//"features/annotations/route/header.feature":         {header.InitializeScenario, nil},
+		//"features/annotations/route/priority.feature":       {priority.InitializeScenario, nil},
+		//"features/annotations/balance/load_balance.feature": {loadbalance.InitializeScenario, nil},
 		//"features/annotations/redirect/redirect.feature":    {redirect.InitializeScenario, nil},
 	}
 )
