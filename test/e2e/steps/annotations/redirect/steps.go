@@ -34,7 +34,7 @@ var state *tstate.Scenario
 func InitializeScenario(ctx *godog.ScenarioContext) {
 	ctx.Step(`^an Ingress resource with redirection annotations$`, anIngressResourceWithRedirectionAnnotations)
 	ctx.Step(`^The Ingress status shows the IP address or FQDN where it is exposed$`, theIngressStatusShowsTheIPAddressOrFQDNWhereItIsExposed)
-	ctx.Step(`^I send a request to "([^"]*)"$`, iSendARequest)
+	ctx.Step(`^I send a "([^"]*)" request to "([^"]*)"$`, iSendARequestTo)
 	ctx.Step(`^the response status-code must be (\d+)$`, theResponseStatusCodeMustBe)
 	ctx.Step(`^the response location must be "([^"]*)"$`, theResponseLocationMustBe)
 	ctx.Step(`^The Ingress status should not be success$`, theIngressStatusShouldNotBeSuccess)
@@ -92,12 +92,12 @@ func theIngressStatusShowsTheIPAddressOrFQDNWhereItIsExposed() error {
 	return err
 }
 
-func iSendARequest(rawURL string) error {
+func iSendARequestTo(method string, rawURL string) error {
 	u, err := url.Parse(rawURL)
 	if err != nil {
 		return err
 	}
-	return state.CaptureRoundTrip("GET", u.Scheme, u.Host, u.Path, nil)
+	return state.CaptureRoundTrip(method, u.Scheme, u.Host, u.Path, nil)
 }
 
 func theResponseStatusCodeMustBe(statusCode int) error {
