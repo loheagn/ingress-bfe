@@ -190,11 +190,7 @@ func checkAction(cmd, param string) error {
 	switch cmd {
 	case "URL_SET":
 		if _, err := url.Parse(param); err != nil {
-			fakeHost := "fake.org"
-			fakeURL := fmt.Sprintf("https://%s%s", fakeHost, param)
-			if parsedURL, err := url.Parse(fakeURL); err != nil || parsedURL.Host != fakeHost {
-				return fmt.Errorf("the value of %s shoud be a valid URL string or a valid URL Path string: %w", annotations.RedirectURLSetAnnotation, err)
-			}
+			return fmt.Errorf("the value of %s shoud be a valid URL string: %w", annotations.RedirectURLSetAnnotation, err)
 		}
 		return nil
 

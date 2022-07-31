@@ -233,6 +233,82 @@ Feature: Redirect
     Then the response status-code must be 301
     And the response location must be "https://foo.com/bar"
 
+
+  Scenario: An Ingress with annotation `bfe.ingress.kubernetes.io/redirect.url-set` whose value
+  is invalid
+    Given an Ingress resource with redirection annotations
+    """
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: redirect-url-set
+      annotations:
+        bfe.ingress.kubernetes.io/redirect.url-set: aaa-bbb
+    spec:
+      rules:
+        - host: "foo.com"
+          http:
+            paths:
+              - path: /bar
+                pathType: Prefix
+                backend:
+                  service:
+                    name: foo-exact
+                    port:
+                      number: 3000
+    """
+    And The Ingress status should not be success
+
+  Scenario: An Ingress with annotation `bfe.ingress.kubernetes.io/redirect.url-prefix-add` whose value
+  is invalid url
+    Given an Ingress resource with redirection annotations
+    """
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: redirect-url-set
+      annotations:
+        bfe.ingress.kubernetes.io/redirect.url-prefix-add: invalid-url
+    spec:
+      rules:
+        - host: "foo.com"
+          http:
+            paths:
+              - path: /bar
+                pathType: Prefix
+                backend:
+                  service:
+                    name: foo-exact
+                    port:
+                      number: 3000
+    """
+    And The Ingress status should not be success
+
+  Scenario: An Ingress with annotation `bfe.ingress.kubernetes.io/redirect.url-prefix-add` whose value
+  is valid url with fragment
+    Given an Ingress resource with redirection annotations
+    """
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: redirect-url-set
+      annotations:
+        bfe.ingress.kubernetes.io/redirect.url-prefix-add: https://example.org/path#fragment
+    spec:
+      rules:
+        - host: "foo.com"
+          http:
+            paths:
+              - path: /bar
+                pathType: Prefix
+                backend:
+                  service:
+                    name: foo-exact
+                    port:
+                      number: 3000
+    """
+    And The Ingress status should not be success
+
   Scenario: An Ingress with annotation `bfe.ingress.kubernetes.io/redirect.scheme-set` whose value
   is not http or https
     Given an Ingress resource with redirection annotations
