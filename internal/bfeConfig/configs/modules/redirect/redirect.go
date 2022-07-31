@@ -189,7 +189,7 @@ func parseRedirectActionFromAnnotations(annots map[string]string) (*mod_redirect
 func checkAction(cmd, param string) error {
 	switch cmd {
 	case "URL_SET":
-		if _, err := url.Parse(param); err != nil {
+		if _, err := url.ParseRequestURI(param); err != nil {
 			return fmt.Errorf("the value of %s shoud be a valid URL string: %w", annotations.RedirectURLSetAnnotation, err)
 		}
 		return nil
@@ -198,10 +198,10 @@ func checkAction(cmd, param string) error {
 		return nil
 
 	case "URL_PREFIX_ADD":
-		if parsedURL, err := url.Parse(param); err != nil {
-			return fmt.Errorf("the value of %s shoud be a valid URL string without fragment: %w", annotations.RedirectURLSetAnnotation, err)
-		} else if parsedURL.Fragment != "" {
-			return fmt.Errorf("the value of %s shoud be a valid URL string without fragment, but found: %s", annotations.RedirectURLSetAnnotation, param)
+		if _, err := url.ParseRequestURI(param); err != nil {
+			return fmt.Errorf("the value of %s shoud be a valid URL string without fragment: %w", annotations.RedirectURLPrefixAddAnnotation, err)
+		} else if parsedURL, err := url.Parse(param); err != nil || parsedURL.Fragment != "" {
+			return fmt.Errorf("the value of %s shoud be a valid RL string without fragement, but found %s", annotations.RedirectURLPrefixAddAnnotation, param)
 		}
 		return nil
 
