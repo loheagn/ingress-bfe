@@ -31,6 +31,7 @@ import (
 	"time"
 
 	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/annotations/balance/loadbalance"
+	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/annotations/redirect"
 	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/annotations/route/header"
 	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/annotations/route/priority"
 	"github.com/bfenetworks/ingress-bfe/test/e2e/steps/conformance/hostrules"
@@ -139,6 +140,7 @@ var (
 		"features/annotations/route/header.feature":         {header.InitializeScenario, nil},
 		"features/annotations/route/priority.feature":       {priority.InitializeScenario, nil},
 		"features/annotations/balance/load_balance.feature": {loadbalance.InitializeScenario, nil},
+		"features/annotations/redirect/redirect.feature":    {redirect.InitializeScenario, nil},
 	}
 )
 
