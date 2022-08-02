@@ -97,7 +97,7 @@ func iSendARequestTo(method string, rawURL string) error {
 	if err != nil {
 		return err
 	}
-	return state.CaptureRoundTrip(method, "http", u.Host, u.Path, nil, false)
+	return state.CaptureRoundTrip(method, "http", u.Host, u.Path, u.Query(), nil, false)
 }
 
 func theResponseStatusCodeMustBe(statusCode int) error {
