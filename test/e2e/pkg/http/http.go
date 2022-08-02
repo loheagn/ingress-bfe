@@ -63,7 +63,7 @@ type CapturedResponse struct {
 }
 
 // CaptureRoundTrip will perform an HTTP request and return the CapturedRequest and CapturedResponse tuple
-func CaptureRoundTrip(method, scheme, hostname, path, location string, headerInfo http.Header) (*CapturedRequest, *CapturedResponse, error) {
+func CaptureRoundTrip(method, scheme, hostname, path, location string, headerInfo http.Header, doRedirect bool) (*CapturedRequest, *CapturedResponse, error) {
 	var capturedTLSHostname string
 	var certificate *x509.Certificate
 
@@ -142,13 +142,13 @@ func CaptureRoundTrip(method, scheme, hostname, path, location string, headerInf
 	// check if the result is a redirect and return a new request
 	// this avoids the issue of URLs without valid DNS names and
 	// also sends the traffic to the ingress controller IP address or FQDN
-	if isRedirect(resp.StatusCode) {
+	if isRedirect(resp.StatusCode) && doRedirect {
 		redirectURL, err := resp.Location()
 		if err != nil {
 			return nil, nil, err
 		}
 
-		return CaptureRoundTrip(method, redirectURL.Scheme, redirectURL.Hostname(), redirectURL.Path, location, headerInfo)
+		return CaptureRoundTrip(method, redirectURL.Scheme, redirectURL.Hostname(), redirectURL.Path, location, headerInfo, true)
 	}
 
 	capReq := CapturedRequest{}

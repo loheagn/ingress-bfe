@@ -45,7 +45,7 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 	})
 
 	ctx.After(func(ctx context.Context, _ *godog.Scenario, _ error) (context.Context, error) {
-		// delete namespace an all the content
+		// delete namespace and all the content
 		_ = kubernetes.DeleteNamespace(kubernetes.KubeClient, state.Namespace)
 		return ctx, nil
 	})
@@ -97,7 +97,7 @@ func iSendARequestTo(method string, rawURL string) error {
 	if err != nil {
 		return err
 	}
-	return state.CaptureRoundTrip(method, "http", u.Host, u.Path, nil)
+	return state.CaptureRoundTrip(method, "http", u.Host, u.Path, nil, false)
 }
 
 func theResponseStatusCodeMustBe(statusCode int) error {

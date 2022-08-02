@@ -44,7 +44,7 @@ func New() *Scenario {
 }
 
 // CaptureRoundTrip will perform an HTTP request and return the CapturedRequest and CapturedResponse tuple
-func (s *Scenario) CaptureRoundTrip(method, scheme, hostname, path string, headerInfo net_http.Header) error {
+func (s *Scenario) CaptureRoundTrip(method, scheme, hostname, path string, headerInfo net_http.Header, doRedirect bool) error {
 	var location string
 
 	// scheme == http or https
@@ -53,7 +53,7 @@ func (s *Scenario) CaptureRoundTrip(method, scheme, hostname, path string, heade
 		return fmt.Errorf("scheme is not found in addr: %+v", s.IPOrFQDN)
 	}
 
-	capturedRequest, capturedResponse, err := http.CaptureRoundTrip(method, scheme, hostname, path, location, headerInfo)
+	capturedRequest, capturedResponse, err := http.CaptureRoundTrip(method, scheme, hostname, path, location, headerInfo, doRedirect)
 	if err != nil {
 		return err
 	}
